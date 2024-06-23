@@ -25,6 +25,7 @@ const logoStyle = {
 
 function AppAppBar() {
   const { themeMode, toggleTheme } = useThemeMode();
+  console.log("themeMode : ",themeMode);
   const [open, setOpen] = React.useState(false);
   const [isSelected, setIsSelected] = React.useState(0);
   const toggleDrawer = (newOpen: boolean) => () => setOpen(newOpen);
@@ -193,19 +194,25 @@ function AppAppBar() {
                 Sign up
               </Button>
             </Box>
-            <Box sx={{ display: { sm: '', md: 'none' }, bgcolor: "transparent" }} >
+            <Box sx={{ display: { sm: '', md: 'none' } }} >
               <Grid sx={{display: "flex", alignItems:"center"}} >
                 <ToggleColorMode mode={themeMode} toggleColorMode={toggleTheme} />
                 <DrawerOpenButton handleDrawer={toggleDrawer(true)} />
               </Grid>
-              <Drawer anchor="right" open={open} onClose={toggleDrawer(false)}  >
+              <Drawer anchor="right" open={open} onClose={toggleDrawer(false)} >
                 <Box
                   sx={{
                     p: 2,
-                    minWidth: { xs: '30dvw', sm: '20dvw'},
-                    flexGrow: 1,
-                    bgcolor: "transparent",
+                    minWidth: { xs: '30dvw', sm: '20dvw' },
+                    flexGrow: 2,
+                    bgcolor: 'transparent',
                     backdropFilter: 'blur(8px)',
+                    ...(themeMode === 'light' && {
+                      backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                    }),
+                    ...(themeMode === 'dark' && {
+                      backgroundColor: 'rgba(0, 0, 0, 0.3)',
+                    }),
                   }}
                 >
                   <Box
